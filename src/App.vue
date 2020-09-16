@@ -1,16 +1,21 @@
 <template>
-  <router-view />
+  <Main />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Main from '@/views/Main.vue'
 
 export default defineComponent({
-  name: 'App'
+  name: 'App',
+  components: { Main }
 })
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

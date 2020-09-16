@@ -1,10 +1,15 @@
 <template>
   <button
-    class="inline-flex items-center p-1 bg-white border border-transparent rounded outline-none focus:border-blue-300 focus:outline-none focus:shadow-outline-blue hover:bg-gray-100"
+    class="inline-flex items-center bg-white border border-transparent rounded-full outline-none focus:border-blue-300 focus:outline-none focus:shadow-outline-blue"
     type="button"
     @click="spawnDropper"
   >
-    <svg v-bind="$attrs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <svg
+      v-if="!color"
+      v-bind="$attrs"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
       <g fill="none" fill-rule="evenodd" transform="rotate(45 9.536 20.88)">
         <path
           fill="currentColor"
@@ -19,6 +24,13 @@
         />
       </g>
     </svg>
+
+    <span
+      v-else
+      v-bind="$attrs"
+      class="shadow-inner"
+      :style="{ backgroundColor: color }"
+    ></span>
   </button>
 </template>
 
@@ -28,6 +40,11 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'EyeDropper',
   inheritAttrs: false,
+  props: {
+    color: {
+      type: String
+    }
+  },
   methods: {
     spawnDropper() {
       this.$emit('spawn-dropper')

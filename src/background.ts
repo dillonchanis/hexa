@@ -1,39 +1,27 @@
 'use strict'
 
-import { app, protocol, ipcMain, BrowserWindow } from 'electron'
+import { app, protocol, IpcRenderer } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
-import { Menubar } from 'menubar'
 
 // App Windows
 import AppWindows from './windows'
 
+import '@/events/events'
+import '@/events/store-events'
+
 const isDevelopment: boolean = process.env.NODE_ENV !== 'production'
+
+declare global {
+  interface Window {
+    ipcRenderer: IpcRenderer
+  }
+}
 
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
-ipcMain.on('createDropperWindow', () => {
-  AppWindows.colorSelector.init()
-  const dropperWin: BrowserWindow = AppWindows.colorSelector.get()
-  dropperWin.show()
-
-  const mouse = process.platform === 'darwin'
-    ? require('osx-mouse')()
-    : require('win-mouse')()
-  
-  dropperWin.on('close', () => mouse.destroy())
-
-  mouse.on('move', (x: any, y: any) => {
-    dropperWin.setPosition(parseInt(x) - 100, parseInt(y) - 100)
-  })
-})
-
-ipcMain.handle('colorSelected', async () => {
-  AppWindows.colorSelector.get().hide()
-})
- 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
@@ -55,16 +43,6 @@ app.on('ready', async () => {
   }
 
   AppWindows.main.init()
-
-  const mainBar: Menubar = AppWindows.main.get()
-
-  mainBar.on('ready', () => {
-    mainBar.showWindow()
-  })
-
-  mainBar.on('after-hide', () => {
-    AppWindows.colorSelector.get()?.hide()
-  })
 })
 
 if (isDevelopment) {
