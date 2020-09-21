@@ -11,10 +11,10 @@
         @toggle-palette="togglePalette"
       />
 
-      <div class="p-4 pt-2">
+      <div class="p-4 pt-1">
         <label
           for="foreground"
-          class="relative text-xs font-semibold tracking-wide uppercase text-cool-gray-500"
+          class="relative font-semibold tracking-wide uppercase text-xxs text-cool-gray-600"
         >
           Foreground
         </label>
@@ -22,7 +22,7 @@
           <BaseInput v-model="foreground" label="foreground" />
           <div class="ml-2">
             <EyeDropper
-              class="w-5 h-5 rounded-full text-cool-gray-500 hover:text-cool-gray-700"
+              class="w-4 h-4 rounded-full text-cool-gray-500 hover:text-cool-gray-700"
               :color="foreground"
               @click="setActive('foreground')"
               @spawn-dropper="spawnDropper"
@@ -30,10 +30,10 @@
           </div>
         </div>
 
-        <div class="mt-2">
+        <div class="mt-1">
           <label
             for="background"
-            class="text-xs font-semibold tracking-wide uppercase text-cool-gray-500"
+            class="font-semibold tracking-wide uppercase text-xxs text-cool-gray-700"
           >
             Background
           </label>
@@ -41,7 +41,7 @@
             <BaseInput v-model="background" label="background" />
             <div class="pt-1 ml-2">
               <EyeDropper
-                class="w-5 h-5 rounded-full text-cool-gray-500 hover:text-cool-gray-700"
+                class="w-4 h-4 rounded-full text-cool-gray-500 hover:text-cool-gray-700"
                 :color="background"
                 @click="setActive('background')"
                 @spawn-dropper="spawnDropper"
@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <div class="pt-3 mt-3 border-t border-cool-gray-200">
+        <div class="pt-2 mt-2 border-t border-cool-gray-200">
           <Compliance :compliance="compliance" />
         </div>
 
@@ -67,7 +67,7 @@
 
         <div
           v-if="settings.spacingToolEnabled"
-          class="pt-2 mt-3 border-t border-gray-200"
+          class="pt-1 mt-3 border-t border-gray-200"
         >
           <SpacingUtil @copy-to-clipboard="copyToClipboard" />
         </div>
@@ -97,7 +97,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { IpcRendererEvent } from 'electron'
 import _ from 'lodash'
 import { colors } from 'tailwindcss/defaultTheme'
 import { AppStoreSettings } from '@/store'
@@ -118,8 +117,6 @@ enum ColorInput {
   Foreground = 'foreground',
   Background = 'background'
 }
-
-const ipcRenderer = window.ipcRenderer
 
 export default defineComponent({
   name: 'Main',
@@ -151,26 +148,23 @@ export default defineComponent({
     }
   },
   async mounted(): Promise<void> {
-    ipcRenderer.on(
-      Events.ColorSelected,
-      (e: IpcRendererEvent, color: string) => {
-        if (this.activeInput === ColorInput.Foreground) {
-          this.foreground = color
-          return
-        }
-
-        this.background = color
+    window.ipcRenderer.on(Events.ColorSelected, (e, color: string) => {
+      if (this.activeInput === ColorInput.Foreground) {
+        this.foreground = color
+        return
       }
-    )
 
-    const settings: AppStoreSettings = await ipcRenderer.invoke(
+      this.background = color
+    })
+
+    const settings: AppStoreSettings = await window.ipcRenderer.invoke(
       StoreEvents.Initialize
     )
     this.settings = { ...settings }
   },
   methods: {
     copyToClipboard(value: string): void {
-      ipcRenderer.send(Events.CopyToClipboard, value)
+      window.ipcRenderer.send(Events.CopyToClipboard, value)
     },
     async togglePalette(): Promise<void> {
       if (this.showSettings) {
@@ -179,7 +173,9 @@ export default defineComponent({
         return
       }
 
-      this.showPalette = await ipcRenderer.invoke(Events.ToggleLargeWindow)
+      this.showPalette = await window.ipcRenderer.invoke(
+        Events.ToggleLargeWindow
+      )
     },
     async toggleSettings(): Promise<void> {
       if (this.showPalette) {
@@ -188,28 +184,30 @@ export default defineComponent({
         return
       }
 
-      this.showSettings = await ipcRenderer.invoke(Events.ToggleLargeWindow)
+      this.showSettings = await window.ipcRenderer.invoke(
+        Events.ToggleLargeWindow
+      )
     },
     setActive(forInput: ColorInput): void {
       this.activeInput = forInput
     },
     spawnDropper(): void {
-      ipcRenderer.send(Events.CreateDropperWindow)
+      window.ipcRenderer.send(Events.CreateDropperWindow)
     },
     updateColorPickerEnabled(enabled: boolean): void {
-      ipcRenderer.send(UpdateStoreEvents.ColorPickerEnabled, enabled)
+      window.ipcRenderer.send(UpdateStoreEvents.ColorPickerEnabled, enabled)
       this.settings.colorPickerEnabled = enabled
     },
     updateSampleTextEnabled(enabled: boolean): void {
-      ipcRenderer.send(UpdateStoreEvents.SampleTextEnabled, enabled)
+      window.ipcRenderer.send(UpdateStoreEvents.SampleTextEnabled, enabled)
       this.settings.sampleTextEnabled = enabled
     },
     updatePaletteEnabled(enabled: boolean): void {
-      ipcRenderer.send(UpdateStoreEvents.PaletteEnabled, enabled)
+      window.ipcRenderer.send(UpdateStoreEvents.PaletteEnabled, enabled)
       this.settings.paletteEnabled = enabled
     },
     updateSpacingToolEnabled(enabled: boolean): void {
-      ipcRenderer.send(UpdateStoreEvents.SpacingToolEnabled, enabled)
+      window.ipcRenderer.send(UpdateStoreEvents.SpacingToolEnabled, enabled)
       this.settings.spacingToolEnabled = enabled
     },
     translateTailwindColor(value: string): string {

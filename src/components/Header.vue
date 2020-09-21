@@ -2,12 +2,12 @@
   <header
     class="flex items-center justify-between w-full px-4 py-2 bg-cool-gray-50"
   >
-    <h1 class="text-base font-semibold text-cool-gray-800">Hexa</h1>
+    <h1 class="text-sm font-semibold text-cool-gray-800">Hexa</h1>
     <div class="flex">
       <button
         v-if="paletteEnabled"
         type="button"
-        class="inline-block w-5 h-5 ml-2 cursor-pointer text-cool-gray-400 hover:text-cool-gray-500"
+        class="inline-block w-4 h-4 ml-2 cursor-pointer text-cool-gray-400 hover:text-cool-gray-500"
         @click="openPalette"
       >
         <span class="sr-only">Color Palette</span>
@@ -25,7 +25,7 @@
       </button>
       <button
         type="button"
-        class="inline-block w-5 h-5 ml-2 cursor-pointer text-cool-gray-400 hover:text-cool-gray-500"
+        class="inline-block w-4 h-4 ml-2 cursor-pointer text-cool-gray-400 hover:text-cool-gray-500"
         @click="openSettings"
       >
         <span class="sr-only">Settings</span>

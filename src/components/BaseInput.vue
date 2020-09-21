@@ -1,6 +1,6 @@
 <template>
   <input
-    class="block w-full p-1 px-2 text-base border rounded form-input bg-cool-gray-50 text-cool-gray-700 border-cool-gray-300 focus:border-gray-300 focus:shadow-outline-gray"
+    class="block w-full px-2 py-1 text-sm border rounded form-input bg-cool-gray-50 text-cool-gray-700 border-cool-gray-300 focus:border-cool-gray-300 focus:shadow-outline-blue"
     :id="label"
     :name="label"
     :value="modelValue"

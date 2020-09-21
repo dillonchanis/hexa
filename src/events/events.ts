@@ -3,11 +3,11 @@ import { Menubar } from 'menubar'
 import { getColorHexRGB } from 'electron-color-picker'
 
 import { Events } from '@/events'
-import AppWindows from '@/windows'
+import MainWindow from '@/main.window'
 
 ipcMain.handle(Events.ToggleLargeWindow, () => {
-  AppWindows.main.toggle()
-  return AppWindows.main.status()
+  MainWindow.toggle()
+  return MainWindow.status()
 })
 
 ipcMain.on(Events.CreateDropperWindow, async () => {
@@ -16,12 +16,12 @@ ipcMain.on(Events.CreateDropperWindow, async () => {
     return ''
   })
 
-  const main: Menubar | undefined = AppWindows.main.get()
+  const main: Menubar | undefined = MainWindow.get()
   main?.window?.webContents.send(Events.ColorSelected, color)
 })
 
 ipcMain.on(Events.ColorSelected, (event: IpcMainEvent, color: string) => {
-  const main: Menubar = AppWindows.main.get()
+  const main: Menubar = MainWindow.get()
   main.window?.webContents.send(Events.ColorSelected, color)
 })
 

@@ -1,18 +1,18 @@
 <template>
   <label
     for="spacing"
-    class="relative text-xs font-semibold tracking-wide uppercase text-cool-gray-500"
+    class="relative font-semibold tracking-wide uppercase text-xxs text-cool-gray-700"
   >
-    Spacing
+    Spacing (in px)
   </label>
   <div class="flex mt-1">
-    <div class="w-16">
+    <div class="w-14">
       <BaseInput v-model="value" label="spacing" />
     </div>
-    <span class="inline-flex flex-1 ml-3 rounded-md shadow-sm">
+    <span class="inline-flex flex-1 ml-2 rounded-md shadow-sm">
       <button
         type="button"
-        class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-cool-gray-600 hover:bg-cool-gray-500 focus:outline-none focus:border-cool-gray-700 focus:shadow-outline-gray active:bg-cool-gray-700"
+        class="inline-flex items-center justify-center flex-1 px-1 py-1 font-medium leading-4 text-white transition duration-150 ease-in-out border border-transparent rounded-md text-xxs bg-cool-gray-600 hover:bg-cool-gray-500 focus:outline-none focus:border-cool-gray-700 focus:shadow-outline-gray active:bg-cool-gray-700"
         @click="copyToClipboard"
       >
         <svg

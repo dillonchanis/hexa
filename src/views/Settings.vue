@@ -1,7 +1,7 @@
 <template>
   <div class="flex-1 w-full px-4 pt-2 overflow-y-scroll">
     <header class="flex justify-between">
-      <h2 class="font-semibold text-cool-gray-700">Settings</h2>
+      <h2 class="text-sm font-semibold text-cool-gray-700">Settings</h2>
 
       <button
         type="button"
@@ -9,7 +9,7 @@
         @click="close"
       >
         <IconClose
-          class="w-5 h-5 text-cool-gray-500 hover:text-cool-gray-600"
+          class="w-4 h-4 text-cool-gray-500 hover:text-cool-gray-600"
         />
       </button>
     </header>
@@ -17,10 +17,10 @@
     <div class="mt-3 space-y-4">
       <div class="flex items-center justify-between">
         <label for="paletteCheckbox">
-          <span class="text-sm font-medium leading-5 sm:text-cool-gray-700">
+          <span class="text-xs font-medium leading-5 sm:text-cool-gray-700">
             Enable Tailwind palette
           </span>
-          <p class="w-64 text-sm leading-5 text-cool-gray-600">
+          <p class="w-64 text-xs leading-5 text-cool-gray-600">
             Show default TailwindCSS palette option.
           </p>
         </label>
@@ -35,10 +35,10 @@
 
       <div class="flex items-center justify-between">
         <label for="sampleCheckbox">
-          <span class="text-sm font-medium leading-5 sm:text-cool-gray-700">
+          <span class="text-xs font-medium leading-5 sm:text-cool-gray-700">
             Show sample text
           </span>
-          <p class="w-64 text-sm leading-5 text-cool-gray-600">
+          <p class="w-64 text-xs leading-5 text-cool-gray-600">
             Display sample message with selected colors.
           </p>
         </label>
@@ -53,10 +53,10 @@
 
       <div class="flex items-center justify-between">
         <label for="spacingCheckbox">
-          <span class="text-sm font-medium leading-5 sm:text-cool-gray-700">
+          <span class="text-xs font-medium leading-5 sm:text-cool-gray-700">
             Enable spacing tool
           </span>
-          <p class="w-64 text-sm leading-5 text-cool-gray-600">
+          <p class="w-64 text-xs leading-5 text-cool-gray-600">
             Enter size in pixels and we'll give you the closest Tailwind class
             to match.
           </p>

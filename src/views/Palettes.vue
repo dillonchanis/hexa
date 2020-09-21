@@ -2,10 +2,10 @@
   <div class="flex-1 w-full h-full p-4 pt-2 overflow-y-scroll">
     <div class="flex justify-between">
       <div>
-        <span class="font-semibold text-cool-gray-700 leading-500">
+        <span class="text-sm font-semibold text-cool-gray-700 leading-500">
           Tailwind Palette
         </span>
-        <span class="block text-sm text-cool-gray-600">
+        <span class="block text-xs text-cool-gray-600">
           Click a palette to copy it's Hex value!
         </span>
       </div>
@@ -16,7 +16,7 @@
         @click="close"
       >
         <IconClose
-          class="w-5 h-5 text-cool-gray-500 hover:text-cool-gray-600"
+          class="w-4 h-4 text-cool-gray-500 hover:text-cool-gray-600"
         />
       </button>
     </div>

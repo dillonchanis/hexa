@@ -5,7 +5,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 // App Windows
-import AppWindows from './windows'
+import MainWindow from './main.window'
 
 import '@/events/events'
 import '@/events/store-events'
@@ -28,6 +28,12 @@ app.on('window-all-closed', () => {
   }
 })
 
+app.on('activate', () => {
+  if (!MainWindow.get()) {
+    MainWindow.init()
+  }
+})
+
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
@@ -42,7 +48,11 @@ app.on('ready', async () => {
     createProtocol('app')
   }
 
-  AppWindows.main.init()
+  MainWindow.init()
+
+  if (process.platform === 'darwin') {
+    app.dock.hide()
+  }
 })
 
 if (isDevelopment) {

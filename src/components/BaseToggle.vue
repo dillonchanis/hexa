@@ -12,7 +12,7 @@
   >
     <span
       aria-hidden="true"
-      class="relative inline-block w-5 h-5 transition duration-200 ease-in-out transform translate-x-0 bg-white rounded-full shadow"
+      class="relative inline-block w-4 h-4 transition duration-200 ease-in-out transform translate-x-0 bg-white rounded-full shadow"
       :class="{
         'translate-x-5': on,
         'translate-x-0': off

@@ -15,7 +15,7 @@
       :checked="modelValue === value"
       @change="$emit('update:modelValue', $event.target.value)"
     />
-    <span class="inline-block ml-2 text-sm font-medium leading-5">
+    <span class="inline-block ml-2 font-medium leading-5 text-xxs">
       {{ label }}
     </span>
     <img

@@ -1,7 +1,7 @@
 <template>
-  <IconCheck v-if="compliant" class="w-5 h-5 text-green-500" />
-  <IconBan v-else-if="indeterminate" class="w-5 h-5 text-cool-gray-500" />
-  <IconXCircle v-else class="w-5 h-5 text-red-500" />
+  <IconCheck v-if="compliant" class="w-4 h-4 text-green-500" />
+  <IconBan v-else-if="indeterminate" class="w-4 h-4 text-cool-gray-500" />
+  <IconXCircle v-else class="w-4 h-4 text-red-500" />
 </template>
 
 <script lang="ts">

@@ -1,6 +1,6 @@
 <template>
   <div v-for="(twColor, name, index) in colors" :key="index" class="mb-3">
-    <span class="font-semibold capitalize text-cool-gray-700">
+    <span class="text-sm font-semibold capitalize text-cool-gray-700">
       {{ name }}
     </span>
     <div class="grid grid-cols-5 gap-2 py-2">

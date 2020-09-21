@@ -12,7 +12,10 @@
       leave-class="transform translate-y-0 opacity-100"
       leave-to-class="transform -translate-y-1 opacity-0"
     >
-      <span class="p-1 text-xs bg-white rounded text-cool-gray-800" v-if="show">
+      <span
+        class="p-1 bg-white rounded text-xxs text-cool-gray-800"
+        v-if="show"
+      >
         Copied!
       </span>
     </transition>

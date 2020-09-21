@@ -1,8 +1,12 @@
+/* global __static */
+
+import { app } from 'electron'
 import { menubar, Menubar } from 'menubar'
 import path from 'path'
-import { IWindowToggle } from './'
+import url from 'url'
+import { IWindowToggle } from './windows'
 
-export default (dirname: string): IWindowToggle => {
+const window = (): IWindowToggle => {
   const WINDOW = Object.freeze({
     sm: 164,
     lg: 500
@@ -17,20 +21,27 @@ export default (dirname: string): IWindowToggle => {
   }
 
   const create = (): void => {
+    const appIndex = url.format({
+      pathname: path.join(app.getAppPath(), 'index.html'),
+      protocol: 'file',
+      slashes: true
+    })
+
     win = menubar({
       index: process.env.WEBPACK_DEV_SERVER_URL
         ? process.env.WEBPACK_DEV_SERVER_URL
-        : 'app://./index.html',
+        : appIndex,
       browserWindow: {
         alwaysOnTop: true,
         width: WINDOW.sm,
         height: 282,
         transparent: true,
         webPreferences: {
-          preload: path.join(dirname, '../src/windows/preload.ts')
+          nodeIntegration: false,
+          preload: path.join(__dirname, 'preload.js')
         }
       },
-      icon: path.join(dirname, '../src/assets/icon.png')
+      icon: path.join(__static, 'menu-icon.png')
     })
 
     win.on('ready', () => {
@@ -42,6 +53,7 @@ export default (dirname: string): IWindowToggle => {
     const menubar = get()
     menubar?.window?.setBounds({ width })
     const bounds: Electron.Rectangle | undefined = menubar?.tray?.getBounds()
+    console.log(bounds)
     menubar?.positioner.move('trayCenter', bounds)
   }
 
@@ -68,3 +80,5 @@ export default (dirname: string): IWindowToggle => {
     status
   }
 }
+
+export default window()
