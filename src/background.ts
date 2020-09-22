@@ -2,6 +2,7 @@
 
 import { app, protocol, IpcRenderer } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+import { autoUpdater } from 'electron-updater'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 // App Windows
@@ -46,6 +47,7 @@ app.on('ready', async () => {
 
   if (!process.env.WEBPACK_DEV_SERVER_URL) {
     createProtocol('app')
+    autoUpdater.checkForUpdatesAndNotify()
   }
 
   MainWindow.init()
